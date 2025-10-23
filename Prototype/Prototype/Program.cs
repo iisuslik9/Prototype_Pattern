@@ -16,6 +16,7 @@
         }
         static void Main(string[] args)
         {
+            /*
             //Dog dog1 = new Dog(1, "Snoopy", 5, 38.6, "Golden Retriever");
             //Console.WriteLine("Original Dog: " + dog1);
 
@@ -34,8 +35,9 @@
 
             //Console.WriteLine("Modified Cloned Dog: " + clonedDog1);
             //Console.WriteLine("Original Dog after clone modification: " + dog1);
+            */
 
-
+            /*
             Animal animal = new Animal(1, "Generic Animal", 3);
             Mammal mammal = new Mammal(2, "MammalName", 5, 37.5);
             Fish fish = new Fish(3, "Goldfish", 1, WaterType.Fresh);
@@ -84,8 +86,9 @@
             Console.WriteLine("Original Dog: " + dog);
 
             
+            */
 
-
+            /*
             Dog dog2 = new Dog(1, "Buddy", 4, 38.6, "Golden Retriever");
             Mammal mammal2 = new Mammal(2, "horton", 10, 36.5);
             Fish fish2 = new Fish(3, "nemo", 1, WaterType.Salt);
@@ -95,12 +98,53 @@
             TestICloneable((ICloneable)dog);
             TestICloneable((ICloneable)mammal);
             TestICloneable((ICloneable)fish);
+            */
 
+            Animal animal = new Animal(1, "Generic Animal", 3);
+            Mammal mammal = new Mammal(2, "Horton", 5, 37.5);
+            Fish fish = new Fish(3, "Nemo", 1, WaterType.Salt);
+            Dog dog = new Dog(4, "Snoopy", 4, 38.6, "Golden Retriever");
 
             PrintAnimalInfo(animal);
             PrintAnimalInfo(dog);
 
+            // через базовый метод
+            Animal clonedAnimal1 = dog.MyClone();
+            Console.WriteLine("Cloned Animal: " + clonedAnimal1);
 
+            //через интерфейс с конкретным типом
+            IMyCloneable<Animal> dogCloneInterface = dog.MyClone();
+            Dog clonedDog1 = (Dog)dogCloneInterface.MyClone();
+            Console.WriteLine("Cloned Dog via interface: " + clonedDog1);
+
+
+            clonedDog1.Name = "Max";
+            clonedDog1.Breed = "Labrador";
+
+            Console.WriteLine("Modified Cloned Dog: " + clonedDog1);
+            Console.WriteLine("Original Dog after clone modification: " + dog);
+
+            IMyCloneable<Animal> a = dog.MyClone();
+            if (a is Dog)
+            {
+                Console.WriteLine(  );
+                Console.WriteLine(a.ToString());
+            }
+
+
+            // 
+            Animal[] animalArray = { animal, mammal, fish, dog };
+            Animal[] clonedArray = new Animal[animalArray.Length];
+            for (int i = 0; i < animalArray.Length; i++)
+            {
+                clonedArray[i] = (Animal)animalArray[i].MyClone();
+            }
+
+            Console.WriteLine("\n== cloned array of animals ==");
+            for (int i = 0; i < clonedArray.Length; i++)
+            {
+               
+            }
         }
     }
 }

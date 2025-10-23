@@ -16,7 +16,7 @@ namespace Prototype
     /// потомок класса Животное
     /// добавляет свойство ― тип воды (пресная/солёная)
     /// </summary>
-    public class Fish : Animal, IMyCloneable<Fish>, ICloneable
+    public class Fish : Animal, IMyCloneable<Animal>, ICloneable
     {
         public WaterType WaterType { get; set; }
         public Fish() { }
@@ -30,19 +30,15 @@ namespace Prototype
         {
             return $"Fish: {Name}, Age: {Age}, Water: {WaterType}";
         }
-        //вызывается базовый конструктор копирования через : base(other)
-        //вызов клонирующего метода создает новый объект
-        //поля базового класса корректно копируются перед инициализацией полей производного
+        
+        //поля базового класса копируются перед инициализацией полей производного
         public Fish(Fish other) : base(other)
         {
             WaterType = other.WaterType;
         }
-        public override Animal MyClone()
-        {
-            return new Fish(this);
-        }
+       
 
-        Fish IMyCloneable<Fish>.MyClone()
+        Animal IMyCloneable<Animal>.MyClone()
         {
             return new Fish(this);
         }

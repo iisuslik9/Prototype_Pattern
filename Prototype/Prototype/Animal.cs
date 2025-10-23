@@ -30,15 +30,15 @@ namespace Prototype
         }
 
 
-        public Animal(Animal other)  // конструктор копирования
+        protected Animal(Animal other)  // конструктор копирования
         {
             ID = other.ID;
             Name = other.Name;
             Age = other.Age;
         }
 
-        
-        public virtual Animal MyClone()
+
+        public  Animal MyClone()
         {
             return new Animal(this);  //вызываем констр копир
         }
@@ -48,7 +48,6 @@ namespace Prototype
             return MyClone();
         }
 
-
-
+        
     }
 }
