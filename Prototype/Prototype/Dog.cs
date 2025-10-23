@@ -11,7 +11,7 @@ namespace Prototype
     /// потомок класса Animal
     /// добавляет свойство - порода
     /// </summary>
-    public class Dog : Mammal
+    public class Dog : Mammal, IMyCloneable<Dog>
     {
         public string Breed { get; set; }
         
@@ -22,5 +22,25 @@ namespace Prototype
         {
             Breed = breed;
         }
+        public override string ToString()
+        {
+            return $"Dog: {Name}, Age: {Age}, Temp: {BodyTemperature}, Breed: {Breed}";
+        }
+        public Dog(Dog other) : base(other)
+        {
+            Breed = other.Breed;
+        }
+
+        public override Animal MyClone()
+        {
+            return new Dog(this);
+        }
+
+        Dog IMyCloneable<Dog>.MyClone()
+        {
+            return new Dog(this);
+        }
+
+        
     }
 }

@@ -24,6 +24,26 @@ namespace Prototype
             Name = name;
             Age = age;
         }
+        public override string ToString()
+        {
+            return $"Animal ID:{ID}, Name: {Name}, Age: {Age}";
+        }
+
+
+        public Animal(Animal other)  // конструктор копирования
+        {
+            ID = other.ID;
+            Name = other.Name;
+            Age = other.Age;
+        }
+
+        
+        public virtual Animal MyClone()
+        {
+            return new Animal(this);  //вызываем констр копир
+        }
+
+
 
 
     }
