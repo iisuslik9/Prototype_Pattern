@@ -10,7 +10,7 @@ namespace Prototype
     /// Базовый класс Животное
     /// общие данные (id, имя, возраст)
     /// </summary>
-    public class Animal : IMyCloneable<Animal>
+    public class Animal : IMyCloneable<Animal>, ICloneable
     {
         public int ID { get; set; }
         public string? Name { get; set; }
@@ -43,6 +43,10 @@ namespace Prototype
             return new Animal(this);  //вызываем констр копир
         }
 
+        object ICloneable.Clone()
+        {
+            return MyClone();
+        }
 
 
 

@@ -11,7 +11,7 @@ namespace Prototype
     /// потомок класса Animal
     /// добавляет свойство - температура тела
     /// </summary>
-    public class Mammal : Animal, IMyCloneable<Mammal>
+    public class Mammal : Animal, IMyCloneable<Mammal>, ICloneable
     {
         public double BodyTemperature { get; set; }
         public Mammal() { }
@@ -38,5 +38,9 @@ namespace Prototype
             return new Mammal(this);
         }
 
+        object ICloneable.Clone()
+        {
+            return MyClone();
+        }
     }
 }
