@@ -8,8 +8,8 @@ namespace Prototype
 {
     public enum WaterType
     {
-        Freshwater,  
-        Saltwater,   
+        Fresh,  
+        Salt,   
     }
     /// <summary>
     /// класс Рыба
