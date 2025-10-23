@@ -11,9 +11,20 @@ namespace Prototype
         Freshwater,  
         Saltwater,   
     }
+    /// <summary>
+    /// класс Рыба
+    /// потомок класса Животное
+    /// добавляет свойство ― тип воды (пресная/солёная)
+    /// </summary>
     public class Fish : Animal
     {
         public WaterType WaterType { get; set; }
+        public Fish() { }
 
+        public Fish(int id, string name, int age, WaterType waterType)
+            : base(id, name, age)
+        {
+            WaterType = waterType;
+        }
     }
 }
