@@ -108,18 +108,15 @@
             PrintAnimalInfo(animal);
             PrintAnimalInfo(dog);
 
-            // через базовый метод
-            Animal clonedAnimal1 = dog.MyClone();
-            Console.WriteLine("Cloned Animal: " + clonedAnimal1);
 
-            //через интерфейс с конкретным типом
-            IMyCloneable<Animal> dogCloneInterface = dog.MyClone();
-            Dog clonedDog1 = (Dog)dogCloneInterface.MyClone();
-            Console.WriteLine("Cloned Dog via interface: " + clonedDog1);
+            //копирование через интерфейс IMyCloneable<Animal>
 
+            var clonedDog1 = ((IMyCloneable<Animal>)dog).MyClone();
 
-            clonedDog1.Name = "Max";
-            clonedDog1.Breed = "Labrador";
+            Dog dogClone = clonedDog1 as Dog;   // приведение к Dog тк clonedDog1 это тип Animal
+
+            dogClone.Name = "Max";
+            dogClone.Breed = "Labrador";
 
             Console.WriteLine("Modified Cloned Dog: " + clonedDog1);
             Console.WriteLine("Original Dog after clone modification: " + dog);
@@ -132,19 +129,35 @@
             }
 
 
-            // 
-            Animal[] animalArray = { animal, mammal, fish, dog };
-            Animal[] clonedArray = new Animal[animalArray.Length];
-            for (int i = 0; i < animalArray.Length; i++)
+            Console.WriteLine("\n== cloned list of animals ==");
+
+            List<Animal> animalsList = [ animal, dog, fish, mammal ];
+
+            Console.WriteLine("Original animals:");
+            animalsList.ForEach(a => Console.WriteLine(a));
+
+            List<Animal> clonedAnimals = new List<Animal>();
+            foreach (var anml in animalsList)
             {
-                clonedArray[i] = (Animal)animalArray[i].MyClone();
+                if (anml is IMyCloneable<Animal> cloneable)
+                {
+                    clonedAnimals.Add(cloneable.MyClone());
+                }
             }
 
-            Console.WriteLine("\n== cloned array of animals ==");
-            for (int i = 0; i < clonedArray.Length; i++)
+            Console.WriteLine("\nCloned animals:");
+            clonedAnimals.ForEach(a => Console.WriteLine(a));
+
+            // Изменяем клонированного пса
+            if (clonedAnimals[1] is Dog clonedDog)
             {
-               
+                clonedDog.Name = "bobik";
+                clonedDog.Breed = "borzoi";
             }
+
+            Console.WriteLine("\nAfter modifying cloned dog:");
+            Console.WriteLine("Original dog: " + animalsList[1]);
+            Console.WriteLine("Cloned dog: " + clonedAnimals[1]);
         }
     }
 }
